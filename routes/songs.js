@@ -49,13 +49,13 @@ router.get('/:id', (req, res) => {
 });
 
 router.put('/:id', (req, res) => {
-    return SongService.update(req.body, req.params.id)
-        .then(song => {
-            res.status(201).send(song);
-        })
-        .catch(err => {
-            res.status(500).send(err);
-        });
+  return SongService.update(req.body, req.params.id)
+      .then(song => {
+          res.status(201).send(song);
+      })
+      .catch(err => {
+          res.status(500).send(err);
+      });
 });
 
 router.delete('/:id', (req, res) => {

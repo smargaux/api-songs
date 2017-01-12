@@ -27,7 +27,7 @@ exports.findByArtist= (artist) => {
 });};
 
 exports.update = (song,id) => {
-  return  db.Songs.update(
+    return db.Songs.update(
     {
         title: song.title,
         album: song.album,
@@ -46,7 +46,8 @@ exports.update = (song,id) => {
 exports.destroy=(id)=>{
   return db.Songs.destroy({
   where : {
-      id: id
+      _id: id
     }
   });
-}
+
+};
