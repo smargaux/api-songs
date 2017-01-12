@@ -11,6 +11,7 @@ router.post('/', (req, res) => {
         res.status(400).send({
             message: " Il manque le(s) champs " + difference
         });
+
     }*/
     return SongService.create(req.body)
         .then(song => {
@@ -48,18 +49,18 @@ router.get('/:id', (req, res) => {
 });
 
 router.put('/:id', (req, res) => {
-  return SongService.update(req.body, req.params.id)
-      .then(song => {
-          res.status(201).send(song);
-      })
-      .catch(err => {
-          res.status(500).send(err);
-      });
+    return SongService.update(req.body, req.params.id)
+        .then(song => {
+            res.status(201).send(req.body);
+        })
+        .catch(err => {
+            res.status(500).send(err);
+        });
 });
 
 router.delete('/:id', (req, res) => {
   return SongService.destroy(req.params.id)
-      .then(() => {
+      .then(song => {
           res.status(201).send("Chanson supprimée");
       })
       .catch(err => {
