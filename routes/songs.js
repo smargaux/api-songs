@@ -4,15 +4,14 @@ const _ = require("lodash");
 
 router.post('/', (req, res) => {
     // Verifier si les informations sont complètes
-    const keys = _.keys(req.body);
+    /*const keys = _.keys(req.body);
     const mandatoryKeys = ['title', 'album', 'artist', 'year', 'bpm'];
     const difference = _.difference(mandatoryKeys, keys);
     if (!difference.length) {
         res.status(400).send({
             message: " Il manque le(s) champs " + difference
         });
-
-    }
+    }*/
     return SongService.create(req.body)
         .then(song => {
             res.status(201).send(song);
