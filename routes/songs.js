@@ -31,9 +31,7 @@ router.post('/',addSongMiddleware, function(req, res,next) {
     return SongService.create(req.body)
         .then(song => {
           if (req.accepts('text/html')) {
-              return res.render('song', {
-                  song: song
-              });
+              return res.redirect('songs/'+song.id);
           }
           if (req.accepts('application/json')) {
               return res.status(200).send(song);
