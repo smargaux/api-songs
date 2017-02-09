@@ -23,9 +23,26 @@ router.post('/', (req, res) => {
 
 });
 router.get('/', (req, res) => {
+    if (!req.accepts('text/html') && !req.accepts('application/json')) {
+        return res.status(406).send({
+            err: 'Not valid type for asked resource'
+        });
+    }
     SongService.find(req.query)
         .then(songs => {
-            res.status(200).send(songs);
+            if (!songs) {
+                return res.statut(404).send({
+                    err: "No song found"
+                });
+            }
+            if (req.accepts('text/html')) {
+                return res.render('songs', {
+                    songs: songs
+                });
+            }
+            if (req.accepts('application/json')) {
+                return res.status(200).send(songs);
+            }
         });
 });
 
@@ -37,14 +54,27 @@ router.get('/artist/:artist', (req, res) => {
 });
 
 router.get('/:id', (req, res) => {
-    SongService.findById(req.params.id)
-        .then(songs => {
-            res.status(200).send(songs);
-        })
-        .catch(err => {
-            res.status(500).send(err);
+    if (!req.accepts('text/html') && !req.accepts('application/json')) {
+        return res.status(406).send({
+            err: 'Not valid type for asked resource'
         });
-
+    }
+    SongService.findById(req.params.id)
+        .then(song => {
+            if (!song) {
+                return res.status(404).send({
+                    err: `id ${req.params.id} not found`
+                });
+            }
+            if (req.accepts('text/html')) {
+                return res.render('song', {
+                    song: song
+                });
+            }
+            if (req.accepts('application/json')) {
+                return res.status(200).send(song);
+            }
+        });
 
 });
 
@@ -59,13 +89,13 @@ router.put('/:id', (req, res) => {
 });
 
 router.delete('/:id', (req, res) => {
-  return SongService.destroy(req.params.id)
-      .then(song => {
-          res.status(201).send("Chanson supprimée");
-      })
-      .catch(err => {
-          res.status(500).send(err);
-      });
+    return SongService.destroy(req.params.id)
+        .then(song => {
+            res.status(201).send("Chanson supprimée");
+        })
+        .catch(err => {
+            res.status(500).send(err);
+        });
 });
 
 module.exports = router;

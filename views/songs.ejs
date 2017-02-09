@@ -1,0 +1,15 @@
+<% include partials/header %>
+<h1>All songs</h1> <hr/>
+<% songs.forEach(function(song) { %>
+  <div style="margin: 0 auto;">
+  <h2><%=song.title%></h2>
+  Album : <%=song.album%> Artist : <%=song.artist%> <% if (song.year) { %>
+        Year   : <%=song.year%>
+     <% } %>
+  <% if (song.bpm) { %> BPM : <%=song.bpm%>
+     <% } %>
+     </div>
+
+<% }); %>
+
+<% include partials/footer %>
