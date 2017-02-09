@@ -1,4 +1,6 @@
 <% include partials/header %>
+<a href="/songs/edit/<%=song.id%>">Modifier la chanson </a>
+
 <h1><%=song.title%></h1> <hr/>
 Album : <%=song.album%> Artist : <%=song.artist%> <% if (song.year) { %>
       Year   : <%=song.year%>
